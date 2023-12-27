@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<title>믹스커피 자판기</title>
+<style>
+	* {
+		margin: 0px;
+		padding: 0px;	
+		color: #fff;
+		font-weight: bold;
+	}
+	
+	#content {
+		width: 800px;
+		margin: 10px auto;
+		padding: 50px;
+		background-color: #331a00; 
+	}
+	
+	.menu {
+		margin: 5px auto;
+		padding: 30px;
+		color: white;
+		font-weight: bold;
+		font-size: 1.2em;
+		text-align: center;
+		width: 195px;
+	}
+	
+	input {
+		padding: 5px;
+		background-color: #333;
+	}
+	
+	input[type="text"]{		
+		text-align: right;
+	}
+	
+	.coin {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+	}
+	.bill {
+		width: 80px;
+		height: 40px;
+	}
+	
+	#returnBtn {		
+		width: 80px;
+		height: 40px;
+		border-radius: 30%;	
+	}
+	
+	.coffee {	
+		width: 100px;
+		height: 40px; 	
+		border-radius: 10%;
+		background-color: #6F4E37; 
+		font-weight: bold;
+	}
+	
+	.btn { text-align: center; }
+	
+	table {		
+		background-image: url("images/bg.jpg");
+		background-repeat: no-repeat;
+		background-position: top center;
+		background-size: cover;  
+		border-collapse: collapse;
+	}
+	
+	table td {
+		border: 3px solid  #333; /*6F4E37;  #5c5c3d;*/
+		/* border-style: ridge;
+		border-style: ridge; */
+		border-style: outset;
+		padding: 20px 5px;		
+	}	
+		
+	#out {
+		position: relative;
+		height: 300px;
+		background-image: url("images/coffeeOut.png");
+		background-repeat: no-repeat;		
+		background-position: center;
+	}	
+	
+	#coffeeOut {
+		position: relative;
+		left: -15px;
+	}
+	
+	.price {
+		padding: 5px 20px;
+		color: #ddd;
+		font-size: 1em;
+		background-color: #111;
+	}
+	#out img {
+		padding-top: 0px;
+		padding-left: 160px;		
+	}
+	
+	#return {
+		padding-top: 50px;
+		text-align: center;	
+		padding-right: 20px;
+	}
+	
+	.returnCoins {
+		width: 50px;
+		margin-top: 10px;
+	}
+	
+	h1 {
+		color: #fff;
+		font-weight: bold;
+		text-align: center;
+		padding-bottom: 1em;
+	}
+	
+	hr {
+		border: 0;
+	    height: 3px;
+	    margin: 20px 0px;
+	    background: #999;
+	}	
+	
+</style>
+
+
+</head>
+<body>
+	<div id="content">
+		<h1>믹스 커피 자판기</h1>
+		<!-- <form method="post" name="frm"> -->
+			<table>
+				<tr>
+					<td class="menu">
+						<img src="images/milkOut.png">
+						<br><span class="price">400원</span>
+					</td>
+					<td class="menu">
+						<img src="images/creamOut.png">
+						<br><span class="price">300원</span>
+					</td>
+					<td class="menu">
+						<img src="images/sugarOut.png">
+						<br><span class="price">300원</span>
+					</td>
+					<td class="menu">
+						<img src="images/blackOut.png">
+						<br><span class="price">200원</span>
+					</td>
+				</tr>
+				<tr>                                     
+					<td class="btn"><input type="submit" class="coffee"  id="milkCoffee" name="milkCoffee" value="밀크커피" /> </td>
+					<td class="btn"><input type="submit" class="coffee"  name="creamCoffee" value="프림커피" /> </td>
+					<td class="btn"><input type="submit" class="coffee"  name="sugarCoffee" value="설탕커피" /> </td>
+					<td class="btn"><input type="submit" class="coffee"  name="blackCoffee" value="블랙커피" /> </td>
+				</tr>                                    
+				
+				<tr>
+					<td class="btn">잔액 : <input type="text" id="balance" size=5 value="0" /> </td>
+					<td class="btn">
+						<input class="bill" type="submit" value="1000" />
+						<input class="bill" type="submit" value="5000" /><br>
+						<input class="bill" type="submit" value="10000" /> 
+					</td>					
+					<td colspan="2" class="btn">
+						
+						<input class="coin" type="submit" value="500원" />
+						<input class="coin" type="submit" value="100원" />
+						<input class="coin" type="submit" value="50원" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" id="out">	
+						<div id="coffeeOut">		
+						<img id="outImg" src="images/OutCoffee.png" height="110px"> 
+						</div>
+					</td>
+					<td  id="return">
+						<input type="submit" id="returnBtn" name="return" value="반환" />
+						<hr>
+						 ▣ 반환금액 ▣
+						<hr>
+						500원 : <input type="text" class="returnCoins" value="0"><br>
+						100원 : <input type="text" class="returnCoins" value="0"><br>
+						 50원 : <input type="text" class="returnCoins" value="0">						
+					</td>
+					<td>
+						<input type="submit" name="admin" value="관리자기능" />
+					</td>					
+				</tr>
+				<tr>
+					<td>
+						<h2>음악듣기</h2>
+					</td>
+					<td colspan="3">					
+						<button id="playBtn">Music Start</button>
+						<button id="pauseBtn">PAUSE</button>
+						<button id="stopBtn">STOP</button>					
+					</td>
+				</tr>
+				
+				<tr>
+					
+				</tr>
+			</table>
+		<!-- </form> -->
+	</div>
+	
+</body>
+
+<script>
+
+let audioFile = new Audio("sound/dance-1.mp3");
+
+let coinSound = new Audio("sound/coin-drops-42702.mp3");
+let canSound = new Audio("sound/can-dropping-2-84837.mp3");
+
+let coffeeSound = new Audio("sound/water-filled-cup-9901.mp3");
+
+$(document).ready(function(){
+	// 지폐값 읽기	
+	comma=[];
+	const option = {
+        maximumFractionDigits: 4
+    };
+	
+	 $('.bill').each(function(index,item){	
+		 money = Number($(this).val());
+		 comma = addComma(money);
+		 $(this).val(comma);
+	});
+
+});
+
+// 숫자에 3자리 콤마를 삽입
+function addComma(number){	
+	// 숫자로 변환
+	number = Number(number);	
+	return number.toLocaleString('ko-KR');	
+}
+
+function coinMusic() {
+	coinSound.pause();
+	coinSound.currentTime = 0; 
+	coinSound.play();
+}
+
+function coffeeMusic() {
+	coffeeSound.pause();
+	coffeeSound.currentTime = 0;
+	coffeeSound.play();
+}
+
+function playMusic() {
+    audioFile.play();
+}
+
+
+function pauseMusic() {
+    audioFile.pause();
+}
+
+
+function stopMusic() {
+	audioFile.pause();
+    audioFile.currentTime = 0; 
+}
+
+//$('#milkCoffee').on('click', coinMusic);
+//$('#playBtn').on('click', coinMusic);
+
+// $('#playBtn').on('click', playMusic);
+$('#pauseBtn').on('click', pauseMusic);
+$('#stopBtn').on('click', stopMusic);
+ 
+ // 버튼 초기화
+function initButtons(){
+	$(".coffee").attr('disabled', true);
+	$(".coffee").attr('disabled', true);
+	$(".coffee").attr('disabled', true);
+	$(".coffee").attr('disabled', true);
+}
+
+// 커피버튼 활성화 비활성화
+function buttonCheck(balance){
+	
+	balance = Number(balance);
+	
+	initButtons();
+	
+	if (balance >= 400){
+		$('input[name=blackCoffee]').attr('disabled', false);
+		$('input[name=sugarCoffee]').attr('disabled', false);
+		$('input[name=creamCoffee]').attr('disabled', false);
+		$('input[name=milkCoffee]').attr('disabled', false);
+	}else if(balance >= 300){
+		$('input[name=blackCoffee]').attr('disabled', false);
+		$('input[name=sugarCoffee]').attr('disabled', false);
+		$('input[name=creamCoffee]').attr('disabled', false);
+	}else if(balance >= 200){
+		$('input[name=blackCoffee]').attr('disabled', false);	
+	}
+}
+
+// 잔돈 반환 처리
+function clearBalance(){	
+	balance = $("#balance").val();
+	$("#returnCoins").val(balance);
+	buttonCheck(0);
+	$("#balance").val(0);
+}
+
+
+function coffee(coffee){
+	coffee = 'images/'+coffee+'.png';
+	$("#outImg").attr("src", coffee);
+	$("#coffeeOut").show();
+	$("#coffeeOut").animate({top: '50px'},"slow");
+	$("#coffeeOut").fadeOut(5000);
+	$("#coffeeOut").animate({top: '-50px'});
+}
+
+//버튼 클릭시 ajax 실행  
+$(document).ready(function(){
+
+	/* alert("처음이야"); */
+
+	initButtons();
+	
+	let balance = 0;	
+	
+	// 동전버튼 처리
+	$(".coin").click(function(){
+		
+		// 클릭한 동전 버튼의 값을 읽어오기
+		const coinValue = $(this).val();	
+		// 비동기로 동전값을 서버에 전송하고
+		// 서버가 전달한 잔액을 받음 		// 
+		$.ajax({      
+	        type:"POST",   
+	        async:false,  
+	        url : "http://localhost:8080/coins.do",  
+	        dataType:"text",
+		    data:{ coin:coinValue },  
+	        success:function(data, textStatus){  
+	        	coinMusic();
+	            $("#balance").val(addComma(data));   
+	            buttonCheck(data)
+	        },   
+	        error:function(e,textStatus){  
+	            alert(e.responseText);  
+	        }  
+	    }); //end ajax
+	});
+	    
+	   
+    // 반환버튼 처리	    
+    $("#returnBtn").click(function(){
+		
+		// 비동기로 동전값을 서버에 전송하고
+		// 서버가 전달한 잔액을 받음 
+		balance = $("#balance").val();
+		url_ = "http://"+window.location.host+"/return.do";
+		alert(url_);
+		
+		$.ajax({      
+	        type:"POST",   
+	        async:false,  
+	        url : url_, // "http://localhost:8080/return.do", 
+	        dataType:"text",
+		    data:{ balance:balance },  
+	        success:function(data, textStatus){  
+	        	coinMusic();
+	            clearBalance();
+	        },   
+	        error:function(e,textStatus){  
+	            alert(e.responseText);  
+	        }  
+	    }); //end ajax	 
+	});
+	
+	
+	// 커피버튼 처리
+	// $("#img_form_url").attr("src", imgurl);
+	$(".coffee").click(function(){
+		
+		// 선택한 커피의 종류를 알아낸다.
+		selectedCoffee = $(this).val();
+		console.log(selectedCoffee);
+		
+		$.ajax({      
+	        type:"POST",   
+	        async:false,  
+	        url : "http://localhost:8080/coffee.do",  
+	        dataType:"json",
+		    data:{ coffee: selectedCoffee },  
+	        success:function(data, textStatus){  
+	            coffee(data.coffee);
+	            coffeeMusic();
+	            $("#balance").val(addComma(data.balance));   
+	            buttonCheck(data.balance)	            	            
+	        },   
+	        error:function(e,textStatus){  
+	            alert(e.responseText);  
+	        }  
+	    }); //end ajax	 
+	});	
+	
+});
+</script>
+</html>
